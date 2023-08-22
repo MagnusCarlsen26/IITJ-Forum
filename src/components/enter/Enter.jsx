@@ -13,7 +13,7 @@ const Enter = () => {
                     <img src="img/Login/iitj.jpg" style={{width:'100%',height:'100vh'}} />
                 </div>
                 <div className="col-6" style={{backgroundImage:`url(${bg})`,backgroundPosition:'center',backgroundSize:'100'}}>
-                    <Login />
+                    <SignUp />
                 </div>
             </div>
         </div>

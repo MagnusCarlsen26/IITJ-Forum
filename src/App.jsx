@@ -1,9 +1,16 @@
-import Login from './components/enter/Enter'
-
+import Enter from './components/enter/Enter';
+  import { Router, Routes, Route } from "react-router-dom";
+import SignUp from './components/enter/SignUp';
 function App() {
   return (
     <div >
-      <Login />
+      {/* <Router>
+        <Routes>
+          <Route path='/login' element = {<Login />} />
+          <Route  path='/signup' element = {<SignUp />} />
+        </Routes>
+      </Router> */}
+      <SignUp />
     </div>
   );
 }
