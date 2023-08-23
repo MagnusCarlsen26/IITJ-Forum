@@ -2,9 +2,7 @@
 import bg from './../../img/Login/bg-login.jpg'
 import Login from './Login'
 import SignUp from './SignUp'
-import Code from './Code'
 
-// 
 const Enter = () => {
     return (
         <div className="container-fluid " style={{ height: '100vh' }}>
