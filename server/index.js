@@ -1,14 +1,15 @@
 // Import required modules
 import express from 'express';
 import mongoose from 'mongoose';
-import postRoutes from './src/routes/posts.js'
+import auth from './src/routes/auth.js'
 
 const app = express();
 
 app.use(express.json());
-app.use('/auth',postRoutes)
+app.use('/auth',auth)
 // 
-const CONNECTION_URL = 'mongodb+srv://IITJ:iitj@atlascluster.wajnvrs.mongodb.net/?retryWrites=true&w=majority';
+const CONNECTION_URL = 'mongodb+srv://khushalsindhav26:iitj@iit.axzzmf1.mongodb.net/iit';
+
 
 mongoose.connect(CONNECTION_URL, {
   useNewUrlParser: true,
