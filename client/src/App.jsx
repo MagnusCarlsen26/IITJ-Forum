@@ -1,16 +1,19 @@
 import Enter from './components/enter/Enter';
 import SignUp from './components/enter/SignUp';
+import Feed from './components/feed/Feed'
+import SelfPage from './components/profile/SelfPage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 function App() {
   return (
-    <div >
-      {/* <Router>
-        <Routes>
-          <Route path='/login' element = {<Login />} />
-          <Route  path='/signup' element = {<SignUp />} />
-        </Routes>
-      </Router> */}
-      <SignUp />
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/signup' element={<SignUp />}/>
+        <Route path='/login' element={<Enter />}/>
+        <Route path='/feed' element={<Feed />} />
+        <Route path='/selfpage' element={<SelfPage />} />
+      </Routes>
+    </Router>
   );
 }
 

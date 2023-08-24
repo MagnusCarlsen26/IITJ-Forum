@@ -3,12 +3,15 @@ import svg from './../../svg'
 import React from 'react'
 import './../../css/enter/enter.css'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
 
 const SignUp = () => {
     const [validEmail,setValidEmail] = React.useState('f')
     const [validPwd,setValidPwd] = React.useState('f')
     const [userClick,setUserClick] = React.useState(false)
     const [pwdClick,setPwdClick] = React.useState(false)
+    const navigate = useNavigate();
 
     const EmailChange = (e) => {
         const email = 'iitj.ac.in'
@@ -61,11 +64,12 @@ const SignUp = () => {
     const onSubmit= async (event) => {
         event.preventDefault()
         try{
-             await axios.post("http://localhost:5000/auth/register",{
+            await axios.post("http://localhost:5000/auth/register",{
                 username,
                 email,
                 password
-             })
+            })
+            navigate('/feed')
         }
         catch (err) {
             console.log(err)

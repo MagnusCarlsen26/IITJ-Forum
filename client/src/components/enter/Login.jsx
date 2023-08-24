@@ -2,6 +2,8 @@
 import svg from './../../svg'
 import React from 'react'
 import './../../css/enter/enter.css'
+import { Link } from 'react-router-dom'
+
 
 const Login = () => {
 
@@ -71,7 +73,7 @@ const Login = () => {
                 <p className='text-center mt-1 mb-5 forgot-pass'>Forgot Password?</p>
                 <button className='btn btn-primary btn-lg mt-5 rounded-5 login-btn'>LOGIN</button>
                 <p className='mt-3 text-center'>Don't have an account? </p>
-                {/* <Link to={'/signup'} className='sign-up-link' ><span className='sign-up-btn'>Sign Up</span></Link>  */}
+                <Link to={'/signup'} className='sign-up-link' ><span className='sign-up-btn'>Sign Up</span></Link> 
             </div>
         </div>
     )
