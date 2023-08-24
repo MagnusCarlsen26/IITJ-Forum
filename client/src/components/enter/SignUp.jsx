@@ -66,7 +66,6 @@ const SignUp = () => {
                 email,
                 password
              })
-             alert("NOW LOGIN REGISTRATION DONE.")
         }
         catch (err) {
             console.log(err)

@@ -1,15 +1,17 @@
-// Import required modules
 import express from 'express';
 import mongoose from 'mongoose';
-import auth from './src/routes/auth.js'
+import auth from './src/routes/auth.js';
+import cors from 'cors'; // Import the cors package
 
 const app = express();
 
-app.use(express.json());
-app.use('/auth',auth)
-// 
-const CONNECTION_URL = 'mongodb+srv://khushalsindhav26:iitj@iit.axzzmf1.mongodb.net/iit';
+// Use CORS middleware
+app.use(cors());
 
+app.use(express.json());
+app.use('/auth', auth);
+
+const CONNECTION_URL = 'mongodb+srv://khushalsindhav26:iitj@iit.axzzmf1.mongodb.net/iit';
 
 mongoose.connect(CONNECTION_URL, {
   useNewUrlParser: true,
