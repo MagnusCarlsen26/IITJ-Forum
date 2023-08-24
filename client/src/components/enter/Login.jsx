@@ -9,7 +9,7 @@ const Login = () => {
     const [validPwd,setValidPwd] = React.useState('f')
     const [userClick,setUserClick] = React.useState(false)
     const [pwdClick,setPwdClick] = React.useState(false)
-    // const toggleUserClick = () => {setUserClick( (item) => {console.log(item) ; return !item }) }
+
     const EmailChange = (e) => {
         const email = 'iitj.ac.in'
         const userEmail = e.target.value
