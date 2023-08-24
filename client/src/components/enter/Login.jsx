@@ -3,7 +3,7 @@ import svg from './../../svg'
 import React from 'react'
 import './../../css/enter/enter.css'
 import { Link } from 'react-router-dom'
-
+import axios from 'axios'
 
 const Login = () => {
 
@@ -55,27 +55,44 @@ const Login = () => {
         else setPwdClick(false) 
     }
     
+    const OnSubmit = async (event) => {
+        event.preventDefault()
+        try {
+            const { message } = await axios.post("http://localhost:5000/auth/register",{
+                username,
+                password
+            })
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
     return (
-        <div className="d-flex h-100 align-items-center justify-content-center login-page"> 
-            <div className="h-75 w-50 bg-white d-flex justify-content-center flex-column p-5" style={{borderRadius:'25px'}}>
-                <p className='text-center display-4 mt-5 mb-2'>Login</p>
-                <div className="form-floating mb-3 mt-5">
-                    <input type="email" className={`form-control is-${validEmail}valid`} id="floatingInput" placeholder="name@example.com" onChange={EmailChange}/>
-                    <label for="floatingInput" > {userClick? svg.coloredUser : svg.user} Email address</label>
-                    <div class="invalid-feedback">
-                        Enter an IITJ email.
+        <form onSubmit={onSubmit}>
+            <div className="d-flex h-100 align-items-center justify-content-center login-page"> 
+                <div className="h-75 w-50 bg-white d-flex justify-content-center flex-column p-5" style={{borderRadius:'25px'}}>
+                    <p className='text-center display-4 mt-5 mb-2'>Login</p>
+
+                    <div className="form-floating mb-3 mt-5">
+                        <input type="email" className={`form-control is-${validEmail}valid`} id="floatingInput" placeholder="name@example.com" onChange={EmailChange}/>
+                        <label for="floatingInput" > {userClick? svg.coloredUser : svg.user} Email address</label>
+                        <div class="invalid-feedback">
+                            Enter an IITJ email.
+                        </div>
                     </div>
+
+                    <div className="form-floating mb-2 ">
+                        <input type="password" className={`form-control form-control is-${!validPwd? 'd':''}valid`} id="floatingPassword" placeholder="Password" onChange={PwdChange} />
+                        <label for="floatingPassword">{!pwdClick? svg.lock : svg.coloredLock} Password</label>
+                    </div>
+
+                    <p className='text-center mt-1 mb-5 forgot-pass'>Forgot Password?</p>
+                    <button className='btn btn-primary btn-lg mt-5 rounded-5 login-btn'>LOGIN</button>
+                    <p className='mt-3 text-center'>Don't have an account? </p>
+                    <Link to={'/signup'} className='sign-up-link' ><span className='sign-up-btn'>Sign Up</span></Link> 
                 </div>
-                <div className="form-floating mb-2 ">
-                    <input type="password" className={`form-control form-control is-${!validPwd? 'd':''}valid`} id="floatingPassword" placeholder="Password" onChange={PwdChange} />
-                    <label for="floatingPassword">{!pwdClick? svg.lock : svg.coloredLock} Password</label>
-                </div>
-                <p className='text-center mt-1 mb-5 forgot-pass'>Forgot Password?</p>
-                <button className='btn btn-primary btn-lg mt-5 rounded-5 login-btn'>LOGIN</button>
-                <p className='mt-3 text-center'>Don't have an account? </p>
-                <Link to={'/signup'} className='sign-up-link' ><span className='sign-up-btn'>Sign Up</span></Link> 
             </div>
-        </div>
+        </form>
     )
 }
 export default Login

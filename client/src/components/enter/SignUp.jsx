@@ -5,7 +5,7 @@ import React from 'react'
 import './../../css/enter/enter.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-
+import Input from './Input'
 
 const SignUp = () => {
     const [validity,setValidity] = React.useState( ['f','f','f','f'] ) 
@@ -45,6 +45,7 @@ const SignUp = () => {
         if(userEmail.length-index!==email.length && bool===1) {
             bool=2;
         }
+
         var ans = 'in'
         if (bool===0) ans = 'f'
         if (bool===1) ans = ''
@@ -73,17 +74,17 @@ const SignUp = () => {
         const userPwd = e.target.value
         var ans1 = 'in' ;
         var ans2 = false ;
+
         setPassword( (item) => {
             console.log(item,userPwd)
             if (item == userPwd) ans1 = ''
             return item
         } )
         if (userPwd.length>0) ans2 = true
-        // EEEEEEEEERRRRRRRRRRRROOOOORRRRRRR
+
         setError( (item) => {var newItem = item.slice() ; newItem[3] = "Passwords do not match.";return newItem } )
         setValidity( (item) => {var newItem = item.slice() ; newItem[3] = ans1;return newItem } )       
         setSvgcolor( (item) => {var newItem = item.slice() ; newItem[3] = ans2;return newItem} )
-        console.log(validity[3])
     }
 
     const [username,setUsername] = React.useState("")
@@ -121,39 +122,42 @@ const SignUp = () => {
                 <div className="h-75 w-50 bg-white d-flex justify-content-center flex-column p-5 signup-form" style={{borderRadius:'25px'}}>
                     <p className='text-center display-4 mt-5 mb-5'>Signup</p>
 
-                    <div className="form-floating mb-2">
-                        <input type="text" className={`form-control is-${validity[0]}valid`} id="floatingInput" placeholder="name@example.com" onChange={(event) => setUsername(event.target.value)}/>
-                        <label for="floatingInput" > {svgcolor[0]? svg.coloredUser : svg.user} Username</label>
-                        <div className="invalid-feedback">
-                            {error[0]}
-                        </div>
-                    </div>
-
-                    <div className="form-floating mb-2">
-                        <input type="email" className={`form-control is-${validity[1]}valid`} id="floatingInput" placeholder="name@example.com" onChange={EmailChange}/>
-                        <label for="floatingInput" > {svgcolor[1]? svg.coloredUser : svg.user} Email address</label>
-                        <div className="invalid-feedback">
-                            {error[1]}
-                        </div>
-                    </div>
-
-                    <div className="form-floating mb-2 ">
-                        <input type="password" className={`form-control form-control is-${validity[2]}valid`} id="floatingPassword" placeholder="Password" onChange={PwdChange} />
-                        <label for="floatingPassword">{!svgcolor[2]? svg.lock : svg.coloredLock} Password</label>
-                        <div className='invalid-feedback'>
-                            {error[2]}
-                        </div>
-                    </div>
-
-
-                    <div className="form-floating mb-2 ">
-                        <input type="password" className={`form-control form-control is-${validity[3]}valid`} id="floatingPassword" placeholder="Password" onChange={confirmPwd} />
-                        <label for="floatingPassword">{!svgcolor[3]? svg.lock : svg.coloredLock}Confirm Password</label>
-                        <div className='invalid-feedback'>
-                            {error[3]}
-                        </div>
-                    </div>
-                    
+                    <Input 
+                        label={"Username"}
+                        validity={validity[0]}
+                        svg={svgcolor[0]? svg.coloredUser : svg.user}
+                        error={error[0]}
+                        onChange={(event) => setUsername(event.target.value)}
+                        placeholder={"name@example.com"}
+                        type={"text"}
+                    />
+                    <Input 
+                        label={"Email"}
+                        validity={validity[1]}
+                        svg={svgcolor[1]? svg.coloredUser : svg.user}
+                        error={error[1]}
+                        onChange={EmailChange}
+                        placeholder={"name@example.com"}
+                        type={"email"}
+                    />
+                    <Input 
+                        label={"Password"}
+                        validity={validity[2]}
+                        svg={svgcolor[2]? svg.coloredLock : svg.lock}
+                        error={error[2]}
+                        onChange={PwdChange}
+                        placeholder={"Password"}
+                        type={"password"}
+                    />
+                    <Input 
+                        label={"Confirm Password"}
+                        validity={validity[3]}
+                        svg={svgcolor[3]? svg.coloredLock : svg.lock}
+                        error={error[3]}
+                        onChange={confirmPwd}
+                        placeholder={"password"}
+                        type={"password"}
+                    />
                     <button type='submit' className='btn btn-primary btn-lg mt-2 rounded-5 Signup-btn'>Signup</button>
                 </div>
             </div>
@@ -162,10 +166,3 @@ const SignUp = () => {
 }
 export default SignUp
 
-// email svg
-// confirm password login
-// same ids at multiple places
-// className instead of class
-// registration successful message
-// testing
-// checking values when submit
