@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 const Login = () => {
 
     const [validEmail,setValidEmail] = React.useState('f')
-    const [validPwd,setValidPwd] = React.useState('f')
+    const [validPwd,setValidPwd] = React.useState(false)
     const [userClick,setUserClick] = React.useState(false)
     const [pwdClick,setPwdClick] = React.useState(false)
 

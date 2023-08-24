@@ -6,18 +6,21 @@ import bcrypt, { compare } from 'bcrypt'
 const router = express.Router()
 
 router.post( '/register' , async(req,res) => {
-    const {username,password,email} = req.body
+    const {username,password,useremail} = req.body
     const user = await UserModel.find({username});
-    console.log('HI')
+    const email = await UserModel.find({email : useremail})
+
     if (user.length) {
         return res.json({message:"Username already taken."})
     } 
+    if (user.length) {
+        return res.json({message:"Email already exists."})
+    }
     const hashedPassword = await bcrypt.hash(password,10)
 
-    const newUser = new UserModel({username , password: hashedPassword , email})
+    const newUser = new UserModel({username , password: hashedPassword , useremail})
     await newUser.save()
-    console.log('Done')
-    res.json({message: "User Registered Succesfully"})
+    res.json({message: "User Registered Succesfully."})
 
 })
 
