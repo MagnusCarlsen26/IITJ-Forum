@@ -6,19 +6,21 @@ import bcrypt, { compare } from 'bcrypt'
 const router = express.Router()
 
 router.post( '/register' , async(req,res) => {
-    const {username,password,useremail} = req.body
-    const user = await UserModel.find({username});
-    const email = await UserModel.find({email : useremail})
+    const {username,password,email} = req.body
+    const user = await UserModel.findOne({username});
+    const mail = await UserModel.findOne({email})
 
-    if (user.length) {
+    if (user) {
+        console.log("REPEAt")
         return res.json({message:"Username already taken."})
     } 
-    if (user.length) {
+
+    if (mail) {
         return res.json({message:"Email already exists."})
     }
     const hashedPassword = await bcrypt.hash(password,10)
 
-    const newUser = new UserModel({username , password: hashedPassword , useremail})
+    const newUser = new UserModel({username , password: hashedPassword , email})
     await newUser.save()
     res.json({message: "User Registered Succesfully."})
 
@@ -29,17 +31,16 @@ router.get( '/register' , (req,res) => {
 } )
 
 router.post( '/login' , async( req,res ) => {
-    const { username , password } = req.body
-    var user = await UserModel.find({username})
-    if(!user.length) {
-        return res.json( {message : "Username doesn't exist"} )
+    const { email , password } = req.body
+    var user = await UserModel.findOne({email})
+    if(!user) {
+        return res.json( {message : "Email doesn't exist."} )
     }
-    user = user[0]
 
     const isPasswordValid = await bcrypt.compare( password , user.password )
 
     if (!isPasswordValid) {
-        return res.json({message : "Username or password incorrect"})
+        return res.json({message : "Email or password incorrect."})
     }
     const token = jwt.sign( {id:user._id},"secret" )
     res.json( {token,userId: user._id} )

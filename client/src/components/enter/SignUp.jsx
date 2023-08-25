@@ -37,7 +37,6 @@ const SignUp = () => {
                 bool = 1
             }
             else{
-                console.log('ERRR')
                 bool = 2
                 break
             }
@@ -50,10 +49,10 @@ const SignUp = () => {
         if (bool===0) ans = 'f'
         if (bool===1) ans = ''
 
+        console.log("HERE")
         setError( (item) => {var newItem = item.slice() ; newItem[1] = "Enter an IITJ email.";return newItem } )
         setValidity( (item) => {var newItem = item.slice() ;newItem[1] = ans; return newItem} )
         setSvgcolor( (item) => {var newItem = item.slice() ; newItem[1] = ans1;return newItem} )
-        console.log(validity[1])
     }
 
     const PwdChange = (e) => {
@@ -76,8 +75,7 @@ const SignUp = () => {
         var ans2 = false ;
 
         setPassword( (item) => {
-            console.log(item,userPwd)
-            if (item == userPwd) ans1 = ''
+            if (item == userPwd) {if (userPwd!=="") ans1 =''}
             return item
         } )
         if (userPwd.length>0) ans2 = true
@@ -94,25 +92,25 @@ const SignUp = () => {
     const onSubmit= async (event) => {
         event.preventDefault()
         try{
-            const { message } = await axios.post("http://localhost:5000/auth/register",{
+            const response = await axios.post("http://localhost:5000/auth/register",{
                 username,
                 email,
                 password
             })
-            if (message === "Username already taken.") {
-                setValidity( (item) => {var newItem = item.slice() ; newItem[0] = "Username already taken.";return newItem} )
+            if (response.data.message == "Username already taken.") {
+                setError( (item) => {var newItem = item.slice() ; newItem[0] = "Username already taken.";return newItem} )
                 setValidity( (item) => {var newItem = item.slice() ; newItem[0] = 'in';return newItem} )
             }
-            if (message === "Email already exists.") {
-                setValidity( (item) => {var newItem = item.slice() ; newItem[1] = "Email Already exists.";return newItem} )
+            if (response.data.message == "Email already exists.") {
+                setError( (item) => {var newItem = item.slice() ; newItem[1] = "Email Already exists.";return newItem} )
                 setValidity( (item) => {var newItem = item.slice() ; newItem[1] = 'in';return newItem} ) 
             }
-            if (message === "User Registered Succesfully.") {
+            if (response.data.message == "User Registered Succesfully.") {
                 navigate('/feed')
             }
         }
         catch (err) {
-            console.error.log(err)
+            console.log(err)
         }
     }
 

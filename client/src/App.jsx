@@ -2,6 +2,7 @@ import Enter from './components/enter/Enter';
 import SignUp from './components/enter/SignUp';
 import Feed from './components/feed/Feed'
 import SelfPage from './components/profile/SelfPage';
+import Login from './components/enter/Login';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
